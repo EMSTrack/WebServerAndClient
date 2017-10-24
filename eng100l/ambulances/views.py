@@ -1,3 +1,4 @@
+import django_filters.rest_framework
 from django.core.urlresolvers import reverse_lazy
 
 from django.views.generic import ListView, CreateView, UpdateView
@@ -121,7 +122,7 @@ class AmbulancesViewSet(ListRetrieveUpdateViewSet):
     serializer_class = AmbulancesSerializer
 
     # Specify django REST's filtering system
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
 
     # Specify fields that user can filter GET by
     filter_fields = ('license_plate', 'status')
@@ -145,7 +146,7 @@ class EquipmentCountViewSet(mixins.UpdateModelMixin, viewsets.GenericViewSet):
 class HospitalViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Hospital.objects.all()
     serializer_class = HospitalSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_fields = ('name', 'address')
 
 
