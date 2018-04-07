@@ -260,16 +260,18 @@ class PatientSerializer(serializers.ModelSerializer):
 
 class CallSerializer(serializers.ModelSerializer):
     
+    patient_set = PatientSerializer(many = True)
     ambulancecalltime_set = AmbulanceCallTimeSerializer(many=True)
     location = PointField(required=False)
     
     class Meta:
         model = Call
-        fields = ['id', 'active', 'details', 'priority',
+        fields = ['id', 'status', 'details', 'priority',
                   'number', 'street', 'unit', 'neighborhood',
                   'city', 'state', 'zipcode', 'country',
                   'location', 'created_at', 'ended_at', 
-                  'comment', 'updated_by', 'updated_on', 'ambulancecalltime_set']
+                  'comment', 'updated_by', 'updated_on', 
+                  'ambulancecalltime_set', 'patient_set']
         read_only_fields = ['updated_by']
 
     def create(self, data):
@@ -286,7 +288,7 @@ class CallSerializer(serializers.ModelSerializer):
     def update(self, instance, data):
 
         # Get current user.
-        user = data['update_by']
+        user = data['updated_by']
 
         # Make sure user is Super.
         if not user.is_superuser:

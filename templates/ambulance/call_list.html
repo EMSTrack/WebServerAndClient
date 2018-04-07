@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Calls</h1>
+            <p>
+                <!-- TODO -->
+            </p>
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>Identifier</th>
+                        <th>Active</th>
+                        <th>Deatils</th>
+                        <th>Priority</th>
+                        <th>Created At</th>
+                        <th>Ended At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for call in call_list %}
+                    <tr>
+                        <td>{{ call.id }}</td>
+                        <td>{{ call.active }}</td>
+                        <td>{{ call.details }}</td>
+                        <td>{{ call.created_at }}</td>
+                        <td>{{ call.ended_at }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

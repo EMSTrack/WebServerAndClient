@@ -347,6 +347,67 @@ class TestPermissions(TestSetup):
                 with self.assertRaises(KeyError):
                     perms.get(hospital=id)
 
+        # Group priority testing
+        u = self.u6
+        perms = Permissions(u)
+        self.assertEqual(1, len(perms.ambulances))
+        self.assertEqual(0, len(perms.hospitals))
+        answer = []
+        self.assertCountEqual(answer, perms.get_can_read('ambulances'))
+        self.assertCountEqual(answer, perms.get_can_write('ambulances'))
+        answer = {
+            'ambulances': {
+                self.a1.id: {
+                    'ambulance': self.a1,
+                    'can_read': False,
+                    'can_write': False
+                },
+            },
+            'hospitals': {}
+        }
+        for id in all_ambulances:
+            if id in answer['ambulances']:
+                self.assertDictEqual(answer['ambulances'][id], perms.get(ambulance=id))
+            else:
+                with self.assertRaises(KeyError):
+                    perms.get(ambulance=id)
+        for id in all_hospitals:
+            if id in answer['hospitals']:
+                self.assertDictEqual(answer['hospitals'][id], perms.get(hospital=id))
+            else:
+                with self.assertRaises(KeyError):
+                    perms.get(hospital=id)
+
+        u = self.u7
+        perms = Permissions(u)
+        self.assertEqual(1, len(perms.ambulances))
+        self.assertEqual(0, len(perms.hospitals))
+        answer = [self.a1.id]
+        self.assertCountEqual(answer, perms.get_can_read('ambulances'))
+        self.assertCountEqual(answer, perms.get_can_write('ambulances'))
+        answer = {
+            'ambulances': {
+                self.a1.id: {
+                    'ambulance': self.a1,
+                    'can_read': True,
+                    'can_write': True
+                },
+            },
+            'hospitals': {}
+        }
+        for id in all_ambulances:
+            if id in answer['ambulances']:
+                self.assertDictEqual(answer['ambulances'][id], perms.get(ambulance=id))
+            else:
+                with self.assertRaises(KeyError):
+                    perms.get(ambulance=id)
+        for id in all_hospitals:
+            if id in answer['hospitals']:
+                self.assertDictEqual(answer['hospitals'][id], perms.get(hospital=id))
+            else:
+                with self.assertRaises(KeyError):
+                    perms.get(hospital=id)          
+
     def test_cache(self):
 
         # clear cache

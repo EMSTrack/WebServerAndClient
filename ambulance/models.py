@@ -273,11 +273,19 @@ class CallPriority(Enum):
     D = 'Less urgent'
     E = 'Not urgent'
 
+class CallStatus(Enum):
+    O = 'Ongoing'
+    P = 'Pending'
+    F = 'Finished'
 
 class Call(AddressModel, UpdatedByModel):
 
-    # active status
-    active = models.BooleanField(default=False)
+    # status
+    CALL_STATUS_CHOICES = \
+        [(m.name, m.value) for m in CallStatus]
+    status = models.CharField(max_length=1,
+                              choices=CALL_STATUS_CHOICES,
+                              default=CallStatus.P.name)
 
     # details
     details = models.CharField(max_length=500, default="")

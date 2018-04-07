@@ -45,6 +45,16 @@ class TestSetupData:
             email='test4@user.com',
             password='extremely_secret')
 
+        cls.u6 = User.objects.create_user(
+            username='highprioritytestuser',
+            email='test6@user.com',
+            password='exceptionally_secret')
+
+        cls.u7 = User.objects.create_user(
+            username='lowprioritytestuser',
+            email='test7@user.com',
+            password='exceedingly_secret')
+
         # Add ambulances
         cls.a1 = Ambulance.objects.create(
             identifier='BC-179',
@@ -162,6 +172,14 @@ class TestSetupData:
         cls.g2 = Group.objects.create(name='Drivers')
         cls.g3 = Group.objects.create(name='Dispatcher')
 
+        cls.g4 = Group.objects.create(name='MediumPriorityAccess') # Default priority = 10
+        cls.g5 = Group.objects.create(name='HighPriorityNoAccess')
+        cls.g6 = Group.objects.create(name='LowPriorityNoAccess')
+        cls.g5.groupprofile.priority = 20
+        cls.g6.groupprofile.priority = 1
+        cls.g5.groupprofile.save()
+        cls.g6.groupprofile.save()
+
         # add hospitals to groups
         GroupHospitalPermission.objects.create(group=cls.g1,
                                                hospital=cls.h1,
@@ -175,7 +193,7 @@ class TestSetupData:
                                                hospital=cls.h2,
                                                can_write=True)
 
-        # g3 has no hospitals
+        # g3, g4, and g5 have no hospitals
 
         # add ambulances to groups
         GroupAmbulancePermission.objects.create(group=cls.g1,
@@ -191,8 +209,23 @@ class TestSetupData:
                                                 ambulance=cls.a3,
                                                 can_write=True)
 
+        GroupAmbulancePermission.objects.create(group=cls.g4,
+                                                ambulance=cls.a1,
+                                                can_read=True,
+                                                can_write=True)
+        GroupAmbulancePermission.objects.create(group=cls.g5,
+                                                ambulance=cls.a1,
+                                                can_read=False,
+                                                can_write=False)
+        GroupAmbulancePermission.objects.create(group=cls.g6,
+                                                ambulance=cls.a1,
+                                                can_read=False,
+                                                can_write=False)
+
         cls.u4.groups.set([cls.g2])
         cls.u5.groups.set([cls.g1, cls.g3])
+        cls.u6.groups.set([cls.g4, cls.g5])
+        cls.u7.groups.set([cls.g4, cls.g6])
 
         # Locations
         cls.l1 = Location.objects.create(
