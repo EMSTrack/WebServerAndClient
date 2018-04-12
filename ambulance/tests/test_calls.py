@@ -48,7 +48,7 @@ class TestCall(TestSetup):
                 password=settings.MQTT['PASSWORD'])
 
         # retrieve any call
-        response = client.get('/api/call/{}/'.format(str(self.c1.id))
+        response = client.get('/api/call/{}/'.format(str(self.c1.id)),
                 follow=True)
         self.assertEqual(response.status_code, 200)
         result = JSONParser().parse(BytesIO(response.content))
