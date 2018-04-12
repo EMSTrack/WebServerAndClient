@@ -74,6 +74,22 @@ class TestSetupData:
             capability=AmbulanceCapability.R.name,
             updated_by=cls.u1)
 
+        # Add calls
+        cls.c1 = Call.objects.create(
+            number="1",
+            street="dunno",
+            updated_by=cls.u1)
+
+        cls.c2 = Call.objects.create(
+            number="2",
+            street="idk",
+            updated_by=cls.u1)
+
+        cls.c3 = Call.objects.create(
+            number="3",
+            street="huh",
+            updated_by=cls.u1)
+
         # Add hospitals
         cls.h1 = Hospital.objects.create(
             name='Hospital General',
