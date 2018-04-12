@@ -3,6 +3,8 @@ from io import BytesIO
 
 from django.test import Client
 
+from django.conf import settings
+
 from ambulance.models import Call, Patient, AmbulanceCallTime, CallStatus
 from ambulance.serializers import CallSerializer, AmbulanceCallTimeSerializer, PatientSerializer
 from emstrack.tests.util import date2iso, point2str
