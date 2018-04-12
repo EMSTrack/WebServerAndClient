@@ -8,7 +8,8 @@ from login.models import \
     UserHospitalPermission, UserAmbulancePermission
 
 from ambulance.models import Ambulance, \
-    AmbulanceCapability, Location, LocationType
+    AmbulanceCapability, Location, LocationType, \
+    Call
 
 from hospital.models import Hospital, \
     Equipment, HospitalEquipment, EquipmentType
