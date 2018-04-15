@@ -1,4 +1,9 @@
 from rest_framework.parsers import JSONParser
+from io import BytesIO
+
+from django.test import Client
+
+from django.conf import settings
 
 from ambulance.models import Call, Patient, AmbulanceCallTime, CallStatus
 from ambulance.serializers import CallSerializer, AmbulanceCallTimeSerializer, PatientSerializer
@@ -38,6 +43,63 @@ class TestCall(TestSetup):
             'patient_set': patientserializer.data
         }
         self.assertDictEqual(serializer.data, result)
+
+    def test_call_viewset(self):
+        # start client
+        client = Client()
+        
+        # login as admin
+        client.login(username=settings.MQTT['USERNAME'],
+                password=settings.MQTT['PASSWORD'])
+
+        # retrieve any call
+        response = client.get('/api/call/{}/'.format(str(self.c1.id)),
+                follow=True)
+        self.assertEqual(response.status_code, 200)
+        result = JSONParser().parse(BytesIO(response.content))
+        answer = CallSerializer(Call.objects.get(id=self.c1.id)).data
+        self.assertDictEqual(result, answer)
+        
+        # retrieve any call
+        response = client.get('/api/call/{}/'.format(str(self.c2.id)),
+                follow=True)
+        self.assertEqual(response.status_code, 200)
+        result = JSONParser().parse(BytesIO(response.content))
+        answer = CallSerializer(Call.objects.get(id=self.c2.id)).data
+        self.assertDictEqual(result, answer)
+
+        # retrieve any call
+        response = client.get('/api/call/{}/'.format(str(self.c3.id)),
+                follow=True)
+        self.assertEqual(response.status_code, 200)
+        result = JSONParser().parse(BytesIO(response.content))
+        answer = CallSerializer(Call.objects.get(id=self.c3.id)).data
+        self.assertDictEqual(result, answer)
+
+        # logout
+        client.logout()
+
+        # login as testuser2
+        client.login(username='testuser2', password='very_secret')
+
+        # try and retrieve any call
+        response = client.get('/api/call/{}/'.format(str(self.c1.id)),
+                follow=True)
+        self.assertEqual(response.status_code, 404)
+
+        # try and retrieve any call
+        response = client.get('/api/call/{}/'.format(str(self.c2.id)),
+                follow=True)
+        self.assertEqual(response.status_code, 404)
+
+        # try and retrieve any call
+        response = client.get('/api/call/{}/'.format(str(self.c3.id)),
+                follow=True)
+        self.assertEqual(response.status_code, 404)
+
+        # logout
+        client.logout()
+
 
     def test_call_update_serializer(self):
         

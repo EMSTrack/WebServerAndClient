@@ -8,7 +8,8 @@ from login.models import \
     UserHospitalPermission, UserAmbulancePermission
 
 from ambulance.models import Ambulance, \
-    AmbulanceCapability, Location, LocationType
+    AmbulanceCapability, Location, LocationType, \
+    Call
 
 from hospital.models import Hospital, \
     Equipment, HospitalEquipment, EquipmentType
@@ -72,6 +73,22 @@ class TestSetupData:
             identifier='BC-181',
             comment='Engine overhaul',
             capability=AmbulanceCapability.R.name,
+            updated_by=cls.u1)
+
+        # Add calls
+        cls.c1 = Call.objects.create(
+            number="1",
+            street="dunno",
+            updated_by=cls.u1)
+
+        cls.c2 = Call.objects.create(
+            number="2",
+            street="idk",
+            updated_by=cls.u1)
+
+        cls.c3 = Call.objects.create(
+            number="3",
+            street="huh",
             updated_by=cls.u1)
 
         # Add hospitals

@@ -147,6 +147,7 @@ class LocationTypeViewSet(mixins.ListModelMixin,
 #Call ViewSet
 
 class CallViewSet(mixins.ListModelMixin,
+                  mixins.RetrieveModelMixin,
                   viewsets.GenericViewSet):
     """
     API endpoint for manipulating Calls.
