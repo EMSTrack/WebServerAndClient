@@ -127,6 +127,7 @@ class LocationViewSet(mixins.ListModelMixin,
 
 
 class LocationTypeViewSet(mixins.ListModelMixin,
+                          mixins.RetrieveModelMixin,
                           viewsets.GenericViewSet):
     """
     API endpoint for manipulating locations.
