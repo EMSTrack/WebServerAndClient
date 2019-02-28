@@ -12,7 +12,7 @@
             <h1>{% trans "Equipment" %}</h1>
 
             <p>
-                <a href="{% url 'equipment:create' %}">{% trans "new" context "masculine" %}</a>
+                <a class="btn btn-success" href="{% url 'equipment:create' %}">{% trans "Add a new equipment" context "masculine" %}</a>
             </p>
 
             {% if equipment_list %}
