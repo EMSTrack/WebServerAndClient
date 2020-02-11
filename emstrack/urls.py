@@ -24,47 +24,47 @@ router = routers.DefaultRouter()
 
 router.register(r'user',
                 ProfileViewSet,
-                base_name='api-user')
+                basename='api-user')
 
 router.register(r'ambulance',
                 AmbulanceViewSet,
-                base_name='api-ambulance')
+                basename='api-ambulance')
 
 router.register(r'location',
                 LocationViewSet,
-                base_name='api-location')
+                basename='api-location')
 
 router.register(r'location/(?P<type>.+)',
                 LocationTypeViewSet,
-                base_name='api-location-type')
+                basename='api-location-type')
 
 router.register(r'hospital',
                 HospitalViewSet,
-                base_name='api-hospital')
+                basename='api-hospital')
 
 router.register(r'equipment/(?P<equipmentholder_id>[0-9]+)/item',
                 EquipmentItemViewSet,
-                base_name='api-equipment')
+                basename='api-equipment')
 
 router.register(r'equipment',
                 EquipmentViewSet,
-                base_name='api-equipment-metadata')
+                basename='api-equipment-metadata')
 
 router.register(r'call',
                 CallViewSet,
-                base_name='api-call')
+                basename='api-call')
 
 router.register(r'priority',
                 CallPriorityViewSet,
-                base_name='api-priority')
+                basename='api-priority')
 
 router.register(r'radio',
                 CallRadioViewSet,
-                base_name='api-radio')
+                basename='api-radio')
 
 router.register(r'client',
                 ClientViewSet,
-                base_name='api-client')
+                basename='api-client')
 
 urlpatterns = i18n_patterns(*[
 
