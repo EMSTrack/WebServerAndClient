@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col">
 
-            <h1>{% blocktrans %}{{ equipmentholder.get_name }}'s Equipments {% endblocktrans %}</h1>
+            <h1>{{ equipmentholder.get_name }}{% trans "'s Equipments " %}</h1>
 
             <p>
                 <a href="{{ equipmentholder.get_absolute_url }}">{% trans "back to" %} {{ equipmentholder.get_type }}</a>
