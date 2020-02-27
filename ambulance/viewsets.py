@@ -18,11 +18,25 @@ from .models import Location, Ambulance, LocationType, Call, AmbulanceUpdate, Am
 from .serializers import LocationSerializer, AmbulanceSerializer, AmbulanceUpdateSerializer, CallSerializer, \
     CallPriorityCodeSerializer, CallPriorityClassificationSerializer, CallRadioCodeSerializer
 
+from equipment.viewsets import EquipmentItemViewSet
 import logging
 logger = logging.getLogger(__name__)
 
 
 # Django REST Framework Viewsets
+class AmbulanceEquipmentItemViewSet(EquipmentItemViewSet):
+    filter_field = 'id'
+    profile_field = 'ambulances'
+    queryset = Ambulance.objects.all()
+#    @override
+    def get_queryset(self, request, pk=None, **kwargs):
+        ambulance=Ambulance.objects.filter(id=pk)
+        return super(self, ambulance.equipmentholder.id)
+
+#    def get_queryset(self):
+
+
+
 
 class AmbulancePageNumberPagination(PageNumberPagination):
     page_size_query_param = 'page_size'

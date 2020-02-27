@@ -37,7 +37,7 @@ class EquipmentItemViewSet(mixins.ListModelMixin,
     lookup_field = 'equipment_id'
 
     # make sure both fields are looked up
-    def get_queryset(self):
+    def get_queryset(self,equipmentholder_id=None):
 
         # retrieve user
         user = self.request.user
@@ -47,7 +47,8 @@ class EquipmentItemViewSet(mixins.ListModelMixin,
             raise PermissionDenied()
         
         # retrieve id
-        equipmentholder_id = int(self.kwargs['equipmentholder_id'])
+        if equipmentholder_id is None:
+            equipmentholder_id = int(self.kwargs['equipmentholder_id'])
         logger.debug('kwargs = {}'.format(self.kwargs))
 
         try:
