@@ -10,7 +10,7 @@ from rest_framework.status import HTTP_400_BAD_REQUEST
 from ambulance.permissions import CallPermissionMixin
 from emstrack.mixins import BasePermissionMixin, \
     CreateModelUpdateByMixin, UpdateModelUpdateByMixin
-from login.permissions import IsCreateByAdminOrSuperOrDispatcher, IsAdminOrSuperOrDispatcher
+from login.permissions import IsAdminOrSuperOrDispatcher, IsCreateByAdminOrSuperOrDispatcher, get_permissions
 
 from .models import Location, Ambulance, LocationType, Call, AmbulanceUpdate, AmbulanceCall, AmbulanceCallHistory, \
     AmbulanceCallStatus, CallStatus, CallPriorityClassification, CallPriorityCode, CallRadioCode
@@ -22,6 +22,7 @@ from equipment.viewsets import EquipmentItemViewSet
 from equipment.serializers import EquipmentItemSerializer
 from equipment.models import EquipmentItem
 import logging
+from django.core.exceptions import PermissionDenied
 logger = logging.getLogger(__name__)
 
 
@@ -33,10 +34,29 @@ class AmbulanceEquipmentItemViewSet(EquipmentItemViewSet):
     lookup_field = 'equipment_id'
     @override
     def get_queryset(self, request, pk=None, **kwargs):
+        user = self.request.user
         ambulance_id = int(self.kwargs['ambulance_id'])
         ambulance = Ambulance.objects.get(id=ambulance_id)
-        logger.debug(ambulance.__name__)
-        return super(self, ambulance.equipmentholder.id)
+        equipmentholder = ambulance.equipmentholder
+        equipmentholder_id = equipmentholder.id
+        if self.request.method == 'GET':
+            is_write = False
+        elif (self.request.method == 'PUT' or
+                self.request.method == 'PATCH' or
+                self.request.method == 'DELETE'):
+            is_write = True
+
+                # check permission (and also existence)
+        if is_write:
+            if not get_permissions(user).check_can_write(ambulance=equipmentholder.ambulance.id):
+                raise PermissionDenied()
+        else:
+            if not get_permissions(user).check_can_read(ambulance=equipmentholder.ambulance.id):
+                raise PermissionDenied()
+        
+        # build queryset
+        filter = {'equipmentholder_id': equipmentholder_id}
+        return self.queryset.filter(**filter)
 
 #    def get_queryset(self):
 
