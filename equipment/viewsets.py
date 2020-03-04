@@ -102,11 +102,26 @@ class AmbulanceEquipmentItemViewSet(mixins.ListModelMixin,
                            mixins.RetrieveModelMixin,
                            UpdateModelUpdateByMixin,
                            viewsets.GenericViewSet):
+    """
+    API endpoint for manipulating equipment.
+
+    list:
+    Retrieve list of equipment.
+
+    retrieve:
+    Retrieve an existing equipment instance.
+
+    update:
+    Update existing equipment instance.
+
+    partial_update:
+    Partially update existing equipment instance.
+    """
     queryset = EquipmentItem.objects.all()
 
     serializer_class = EquipmentItemSerializer
     lookup_field = 'equipment_id'
-    def get_queryset(self, request, pk=None, **kwargs):
+    def get_queryset(self):
         # user = self.request.user
         # ambulance_id = int(self.kwargs['ambulance_id'])
         # ambulance = Ambulance.objects.get(id=ambulance_id)
