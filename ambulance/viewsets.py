@@ -20,16 +20,17 @@ from .serializers import LocationSerializer, AmbulanceSerializer, AmbulanceUpdat
 
 from equipment.viewsets import EquipmentItemViewSet
 from equipment.serializers import EquipmentItemSerializer
+from equipment.models import EquipmentItem
 import logging
 logger = logging.getLogger(__name__)
 
 
 # Django REST Framework Viewsets
 class AmbulanceEquipmentItemViewSet(EquipmentItemViewSet):
-    queryset = Ambulance.objects.all()
+    queryset = EquipmentItem.objects.all()
 
     serializer_class = EquipmentItemSerializer
-    lookup_field = 'ambulance_id'
+    lookup_field = 'equipment_id'
     @override
     def get_queryset(self, request, pk=None, **kwargs):
         ambulance_id = int(self.kwargs['ambulance_id'])
