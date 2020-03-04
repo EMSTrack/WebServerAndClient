@@ -11,10 +11,10 @@ from login.viewsets import ProfileViewSet, ClientViewSet
 from login.views import PasswordView, SettingsView, VersionView
 
 from ambulance.viewsets import AmbulanceViewSet, LocationViewSet, LocationTypeViewSet, CallViewSet, CallPriorityViewSet, \
-    CallRadioViewSet, AmbulanceEquipmentItemViewSet
+    CallRadioViewSet
 
 from hospital.viewsets import HospitalViewSet
-from equipment.viewsets import EquipmentItemViewSet, EquipmentViewSet
+from equipment.viewsets import EquipmentItemViewSet, EquipmentViewSet, AmbulanceEquipmentItemViewSet
 
 from .views import IndexView
 
