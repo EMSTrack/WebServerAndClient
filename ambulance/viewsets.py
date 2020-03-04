@@ -32,7 +32,6 @@ class AmbulanceEquipmentItemViewSet(EquipmentItemViewSet):
 
     serializer_class = EquipmentItemSerializer
     lookup_field = 'equipment_id'
-    @override
     def get_queryset(self, request, pk=None, **kwargs):
         user = self.request.user
         ambulance_id = int(self.kwargs['ambulance_id'])
