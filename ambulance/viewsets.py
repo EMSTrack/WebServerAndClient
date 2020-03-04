@@ -35,6 +35,7 @@ class AmbulanceEquipmentItemViewSet(EquipmentItemViewSet):
     def get_queryset(self, request, pk=None, **kwargs):
         ambulance_id = int(self.kwargs['ambulance_id'])
         ambulance = Ambulance.objects.get(id=ambulance_id)
+        logger.debug(ambulance.__name__)
         return super(self, ambulance.equipmentholder.id)
 
 #    def get_queryset(self):
