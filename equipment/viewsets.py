@@ -98,7 +98,10 @@ class EquipmentItemViewSet(mixins.ListModelMixin,
         return self.queryset.filter(**filter)
 
 
-class AmbulanceEquipmentItemViewSet(EquipmentItemViewSet):
+class AmbulanceEquipmentItemViewSet(mixins.ListModelMixin,
+                           mixins.RetrieveModelMixin,
+                           UpdateModelUpdateByMixin,
+                           viewsets.GenericViewSet):
     queryset = EquipmentItem.objects.all()
 
     serializer_class = EquipmentItemSerializer
