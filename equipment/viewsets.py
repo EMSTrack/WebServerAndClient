@@ -98,10 +98,7 @@ class EquipmentItemViewSet(mixins.ListModelMixin,
         return self.queryset.filter(**filter)
 
 
-class AmbulanceEquipmentItemViewSet(mixins.ListModelMixin,
-                           mixins.RetrieveModelMixin,
-                           UpdateModelUpdateByMixin,
-                           viewsets.GenericViewSet):
+class AmbulanceEquipmentItemViewSet(EquipmentItemViewSet):
     """
     API endpoint for manipulating equipment.
 
