@@ -122,26 +122,8 @@ class AmbulanceEquipmentItemViewSet(EquipmentItemViewSet):
         user = self.request.user
         ambulance_id = int(self.kwargs['ambulance_id'])
         ambulance = Ambulance.objects.get(id=ambulance_id)
-        equipmentholder = ambulance.equipmentholder
-        equipmentholder_id = equipmentholder.id
-        if self.request.method == 'GET':
-            is_write = False
-        elif (self.request.method == 'PUT' or
-                self.request.method == 'PATCH' or
-                self.request.method == 'DELETE'):
-            is_write = True
-
-                # check permission (and also existence)
-        if is_write:
-            if not get_permissions(user).check_can_write(ambulance=equipmentholder.ambulance.id):
-                raise PermissionDenied()
-        else:
-            if not get_permissions(user).check_can_read(ambulance=equipmentholder.ambulance.id):
-                raise PermissionDenied()
-        
-        # build queryset
-        filter = {'equipmentholder_id': equipmentholder_id}
-        return self.queryset.filter(**filter)
+        equipmentholder_id = ambulance.equipmentholder.id
+        return super(self,equipmentholder_id)
 
 class EquipmentViewSet(BasePermissionMixin,
                        viewsets.GenericViewSet):
