@@ -123,7 +123,7 @@ class AmbulanceEquipmentItemViewSet(EquipmentItemViewSet):
         ambulance_id = int(self.kwargs['ambulance_id'])
         ambulance = Ambulance.objects.get(id=ambulance_id)
         equipmentholder_id = ambulance.equipmentholder.id
-        return super(self,equipmentholder_id)
+        return super.get_queryset(self,equipmentholder_id)
 
 class EquipmentViewSet(BasePermissionMixin,
                        viewsets.GenericViewSet):
