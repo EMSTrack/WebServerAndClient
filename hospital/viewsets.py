@@ -48,7 +48,7 @@ class HospitalEquipmentItemViewSet(EquipmentItemViewSet):
     lookup_field = 'equipment_id'
     def get_queryset(self):
         user = self.request.user
-        ambulance_id = int(self.kwargs['hospital_id'])
+        hospital_id = int(self.kwargs['hospital_id'])
         hostpital = Hospital.objects.get(id=hospital_id)
         equipmentholder = hostpital.equipmentholder
         equipmentholder_id = equipmentholder.id
