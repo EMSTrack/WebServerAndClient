@@ -13,7 +13,7 @@ from login.views import PasswordView, SettingsView, VersionView
 from ambulance.viewsets import AmbulanceViewSet, LocationViewSet, LocationTypeViewSet, CallViewSet, CallPriorityViewSet, \
     CallRadioViewSet, AmbulanceEquipmentItemViewSet
 
-from hospital.viewsets import HospitalViewSet
+from hospital.viewsets import HospitalViewSet, HospitalEquipmentItemViewSet
 from equipment.viewsets import EquipmentItemViewSet, EquipmentViewSet
 
 from .views import IndexView
