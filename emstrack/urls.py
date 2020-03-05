@@ -46,6 +46,10 @@ router.register(r'hospital',
                 HospitalViewSet,
                 basename='api-hospital')
 
+router.register(r'hospital/(?P<hospital_id>[0-9]+)/equipment',
+                HospitalEquipmentItemViewSet,
+                basename='api-hospital-equipment')
+
 router.register(r'equipment/(?P<equipmentholder_id>[0-9]+)/item',
                 EquipmentItemViewSet,
                 basename='api-equipment')
