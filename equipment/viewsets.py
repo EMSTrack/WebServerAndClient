@@ -93,7 +93,7 @@ class EquipmentItemViewSet(mixins.ListModelMixin,
             raise PermissionDenied()
 
         # build queryset
-        filter = {'equipmentholder_id': 2}
+        filter = {'equipmentholder_id': equipmentholder_id}
         return self.queryset.filter(**filter)
 
 
