@@ -13,8 +13,8 @@ from login.views import PasswordView, SettingsView, VersionView
 from ambulance.viewsets import AmbulanceViewSet, LocationViewSet, LocationTypeViewSet, CallViewSet, CallPriorityViewSet, \
     CallRadioViewSet, AmbulanceEquipmentItemViewSet
 
-from hospital.viewsets import HospitalViewSet, HospitalEquipmentItemViewSet
-from equipment.viewsets import EquipmentItemViewSet, EquipmentViewSet
+from hospital.viewsets import HospitalViewSet
+from equipment.viewsets import EquipmentItemViewSet, EquipmentViewSet 
 
 from .views import IndexView
 
@@ -45,10 +45,6 @@ router.register(r'location/(?P<type>.+)',
 router.register(r'hospital',
                 HospitalViewSet,
                 basename='api-hospital')
-
-router.register(r'hospital/(?P<hospital_id>[0-9]+)/equipment',
-                HospitalEquipmentItemViewSet,
-                basename='api-hospital-equipment')
 
 router.register(r'equipment/(?P<equipmentholder_id>[0-9]+)/item',
                 EquipmentItemViewSet,
