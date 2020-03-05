@@ -10,8 +10,7 @@ from rest_framework_swagger.views import get_swagger_view
 from login.viewsets import ProfileViewSet, ClientViewSet
 from login.views import PasswordView, SettingsView, VersionView
 
-from ambulance.viewsets import AmbulanceViewSet, LocationViewSet, LocationTypeViewSet, CallViewSet, CallPriorityViewSet, \
-    CallRadioViewSet
+from ambulance.viewsets import AmbulanceEquipmentItemViewSet, AmbulanceViewSet, CallPriorityViewSet, CallRadioViewSet, CallViewSet, LocationTypeViewSet, LocationViewSet
 
 from hospital.viewsets import HospitalViewSet
 from equipment.viewsets import EquipmentItemViewSet, EquipmentViewSet
@@ -29,6 +28,10 @@ router.register(r'user',
 router.register(r'ambulance',
                 AmbulanceViewSet,
                 basename='api-ambulance')
+
+router.register(r'ambulance/(?P<ambulance_id>[0-9]+)/equipment',
+                AmbulanceEquipmentItemViewSet,
+                basename='api-ambulance-equipment')
 
 router.register(r'location',
                 LocationViewSet,
