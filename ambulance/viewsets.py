@@ -20,7 +20,7 @@ from .serializers import LocationSerializer, AmbulanceSerializer, AmbulanceUpdat
 
 from equipment.models import EquipmentItem
 from equipment.serializers import EquipmentItemSerializer
-
+from equipment.viewsets import EquipmentViewSet
 import logging
 logger = logging.getLogger(__name__)
 
