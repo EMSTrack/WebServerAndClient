@@ -15,8 +15,38 @@ from equipment.serializers import EquipmentSerializer
 
 logger = logging.getLogger(__name__)
 
+from equipment.viewsets import EquipmentItemViewSet
+from equipment.models import EquipmentItem
+from equipment.serializers import EquipmentItemSerializer
+    
 
 # Django REST Framework Viewsets
+class HospitalEquipmentItemViewSet(EquipmentItemViewSet):
+    """
+    API endpoint for manipulating ambulance equipment.
+
+    list:
+    Retrieve list of equipment.
+
+    retrieve:
+    Retrieve an existing equipment instance.
+
+    update:
+    Update existing equipment instance.
+
+    partial_update:
+    Partially update existing equipment instance.
+    """
+    queryset = EquipmentItem.objects.all()
+
+    serializer_class = EquipmentItemSerializer
+    lookup_field = 'equipment_id'
+    def get_queryset(self):
+        
+        hospital_id = int(self.kwargs['hospital_id'])
+        hospital = Hospital.objects.get(id=hospital_id)
+        equipmentholder_id = hospital.equipmentholder.id
+        return super().get_queryset(equipmentholder_id)
 
 
 # Hospital viewset
