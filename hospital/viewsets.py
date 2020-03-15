@@ -23,7 +23,7 @@ from equipment.serializers import EquipmentItemSerializer
 # Django REST Framework Viewsets
 class HospitalEquipmentItemViewSet(EquipmentItemViewSet):
     """
-    API endpoint for manipulating ambulance equipment.
+    API endpoint for manipulating hospital equipment.
 
     list:
     Retrieve list of equipment.
