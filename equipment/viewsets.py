@@ -7,7 +7,8 @@ from rest_framework.response import Response
 from emstrack.mixins import UpdateModelUpdateByMixin, BasePermissionMixin
 from equipment.models import EquipmentItem, EquipmentHolder, Equipment
 from equipment.serializers import EquipmentItemSerializer, EquipmentSerializer
-from hospital.viewsets import logger
+import logging
+logger = logging.getLogger(__name__)
 from login.permissions import get_permissions
 
 
