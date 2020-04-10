@@ -1,4 +1,4 @@
-django
+django<3
 django-braces
 environs
 psycopg2-binary
